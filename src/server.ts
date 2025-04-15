@@ -1,8 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import connectDB from './config/database';
+import connectDB from './utils/db';
+import authRoutes from './routes/authRoutes';
 
+// Load environment variables
 dotenv.config();
 
 const app = express();
@@ -15,6 +17,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Connect to MongoDB
 connectDB();
+
+// Routes
+app.use('/api/auth', authRoutes);
 
 // Basic route
 app.get('/', (req, res) => {
